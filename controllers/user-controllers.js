@@ -18,7 +18,7 @@ module.exports = {
       const user = await User.findOne({ _id: req.params.userId });
 
       if (!user) {
-        return res.status(404).json({ message: "No user found with that ID" });
+        return res.status(404).json({ message: "User ID not found" });
       }
 
       res.json(user);
@@ -47,7 +47,7 @@ module.exports = {
       );
 
       if (!user) {
-        return res.status(404).json({ message: "No user found with this iD" });
+        return res.status(404).json({ message: "User ID not found" });
       }
 
       res.json(user);
@@ -65,7 +65,7 @@ module.exports = {
       if (!user) {
         return res.status(404).json({ message: "No user found with that ID" });
       }
-      res.json({ message: "User successfully deleted from existence" });
+      res.json({ message: "User deleted" });
     } catch (err) {
       res.status(500).json(err);
     }
@@ -81,7 +81,7 @@ module.exports = {
       );
 
       if (!user) {
-        return res.status(404).json({ message: "NO user found with that ID" });
+        return res.status(404).json({ message: "NO User ID found" });
       }
 
       res.json(user);
@@ -103,7 +103,7 @@ module.exports = {
         return res.status(404).json({ message: "No user found with that ID" });
       }
 
-      res.json({ message: "Friend successfully terminated from your life :)" });
+      res.json({ message: "Friend successfully deleted!" });
     } catch (err) {
       res.status(500).json(err);
     }

@@ -1,4 +1,5 @@
-const { Thought, User } = require("../models");
+const { Thought, User, Reaction } = require("../models");
+const reactionSchema = require("../models/Reaction");
 
 module.exports = {
   // get all thoughts
@@ -45,7 +46,7 @@ module.exports = {
         });
       }
 
-      res.json("Created the thought");
+      res.json("Thought Created!");
     } catch (err) {
       console.log(err);
       res.status(500).json(err);
@@ -99,7 +100,7 @@ module.exports = {
       //     .json({ message: "Thought deleted but no user found with this iD" });
       // }
 
-      res.json({ message: "Thought successfuly deleted" });
+      res.json({ message: "Thought deleted" });
     } catch (err) {
       res.status(500).json(err);
     }
@@ -126,19 +127,19 @@ module.exports = {
     }
   },
   // delete a reaction by unique Id
-  // http://localhost:3001/api/thoughts/:thoughtId/reactions
+  // http://localhost:3001/api/thoughts/:reactions
   async deleteReaction(req, res) {
     try {
-      const thought = await Thought.findOneAndUpdate(
+      const thought = await reactionSchema.findOneAndUpdate(
         { _id: req.params.thoughtId },
-        { $pull: { reactions: { _id: req.params.reactionId } } },
+        { $pull: { reactions: { _id: req.params.Id } } },
         { runValidators: true, new: true }
       );
 
       if (!thought) {
         return res
           .status(404)
-          .json({ message: "No thought found with that ID" });
+          .json({ message: "No thought found with that ID, try again" });
       }
 
       res.json(thought);
